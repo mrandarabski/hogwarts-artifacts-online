@@ -1,27 +1,18 @@
 spring:
   application:
-    name: hogwarts-artifacts-online
-
+    name: hogarts-artifacts-online
   datasource:
     url: jdbc:h2:mem:hogwarts
-    driverClassName: org.h2.Driver
+    driver-class-name: org.h2.Driver
     username: sa
     password:
-
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
-
   h2:
     console:
       enabled: true
-
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+      path: /h2-console
+api:
+  endpoint:
+    base-url: /api/v1
