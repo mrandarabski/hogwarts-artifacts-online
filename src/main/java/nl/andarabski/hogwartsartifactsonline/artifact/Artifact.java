@@ -2,7 +2,7 @@ package nl.andarabski.hogwartsartifactsonline.artifact;
 
 import jakarta.persistence.*;
 import nl.andarabski.hogwartsartifactsonline.wizard.Wizard;
-import org.hibernate.annotations.GenericGenerator;
+
 
 import java.io.Serializable;
 
@@ -10,9 +10,7 @@ import java.io.Serializable;
 public class Artifact implements Serializable {
 
     @Id
-//    @GeneratedValue(generator = "uuid")
-//    @GenericGenerator(name = "uuid", strategy = "uuid2")
-//    @Column(columnDefinition = "VARCHAR(36)")
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
     private String name;
     private String description;
@@ -23,6 +21,13 @@ public class Artifact implements Serializable {
 
 
     public Artifact() {}
+
+    public Artifact(String id, String name, String description, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+    }
 
     public String getImageUrl() {
         return imageUrl;

@@ -6,11 +6,13 @@ import nl.andarabski.hogwartsartifactsonline.wizard.Wizard;
 import nl.andarabski.hogwartsartifactsonline.wizard.WizardRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Profile("!test")
 @Component
 public class DBDataInitializer implements CommandLineRunner {
 
@@ -52,7 +54,7 @@ public class DBDataInitializer implements CommandLineRunner {
 
         Artifact a5 = new Artifact();
         a5.setId("1250808601744904195");
-        a5.setName("The Sward of Gryffindor");
+        a5.setName("The Sword of Gryffindor");
         a5.setDescription("A goblin-made sword adorned with large rubies on the pommel. It was once owned by Godric Gryffindor, one of the medieval founders of Hogwarts");
         a5.setImageUrl("imageUrl");
 
@@ -63,19 +65,19 @@ public class DBDataInitializer implements CommandLineRunner {
         a6.setImageUrl("imageUrl");
 
         Wizard w1 = new Wizard();
-        w1.setId(1);
+      //  w1.setId(1);
         w1.setName("Albus Dumbledore");
         w1.addArtifact(a1);
         w1.addArtifact(a3);
 
         Wizard w2 = new Wizard();
-        w2.setId(2);
+      //  w2.setId(2);
         w2.setName("Harry Potter");
         w2.addArtifact(a2);
         w2.addArtifact(a4);
 
         Wizard w3 = new Wizard();
-        w3.setId(3);
+       // w3.setId(3);
         w3.setName("Neville Longbottom");
         w3.addArtifact(a5);
 
