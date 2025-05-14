@@ -3,7 +3,6 @@ package nl.andarabski.hogwartsartifactsonline.wizard;
 import jakarta.transaction.Transactional;
 import nl.andarabski.hogwartsartifactsonline.artifact.Artifact;
 import nl.andarabski.hogwartsartifactsonline.artifact.ArtifactRepository;
-import nl.andarabski.hogwartsartifactsonline.artifact.utils.IdWorker;
 import nl.andarabski.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
