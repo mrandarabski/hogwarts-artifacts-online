@@ -7,12 +7,12 @@ spring:
     username: sa
     password:
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+   # database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+ # h2:
+ #   console:
+  #    enabled: true
+   #   path: /h2-console
 api:
   endpoint:
     base-url: /api/v1

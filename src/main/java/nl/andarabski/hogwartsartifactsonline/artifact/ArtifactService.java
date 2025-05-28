@@ -43,13 +43,13 @@ public class ArtifactService {
                             oldArtifact.setImageUrl(update.getImageUrl());
                             return this.artifactRepository.save(oldArtifact);
                         })
-               .orElseThrow(() -> new ObjectNotFoundException(null,artifactId));
+               .orElseThrow(() -> new ObjectNotFoundException("artifact",artifactId));
 
     }
 
     public void delete(String artifactId) {
         this.artifactRepository.findById(artifactId)
-                .orElseThrow(() -> new ObjectNotFoundException(null,artifactId));
+                .orElseThrow(() -> new ObjectNotFoundException("artifact",artifactId));
         this.artifactRepository.deleteById(artifactId);
 
     }

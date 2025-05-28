@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false) // Turns off Spring Security
 public class WizardControllerTest {
 
     @Autowired
@@ -62,19 +62,25 @@ public class WizardControllerTest {
         Artifact a5 = new Artifact("1250808601744904195", "The Sword of Gryffindor", "A goblin-made sword...", "imageUrl");
         Artifact a6 = new Artifact("1250808601744904196", "Resurrection Stone", "The Resurrection Stone allows the holder to bring back...", "imageUrl");
 
-        Wizard w1 = new Wizard(1, "Albus Dumbledore");
+        Wizard w1 = new Wizard();
+        w1.setId(1);
+        w1.setName("Albus Dumbledore");
         w1.addArtifact(a1);
         w1.addArtifact(a3);
-        wizards.add(w1);
+        this.wizards.add(w1);
 
-        Wizard w2 = new Wizard(2, "Harry Potter");
+        Wizard w2 = new Wizard();
+        w2.setId(2);
+        w2.setName("Harry Potter");
         w2.addArtifact(a2);
         w2.addArtifact(a4);
-        wizards.add(w2);
+        this.wizards.add(w2);
 
-        Wizard w3 = new Wizard(3, "Neville Longbottom");
+        Wizard w3 = new Wizard();
+        w3.setId(3);
+        w3.setName("Neville Longbottom");
         w3.addArtifact(a5);
-        wizards.add(w3);
+        this.wizards.add(w3);
     }
 
     @Test
@@ -121,7 +127,9 @@ public class WizardControllerTest {
         WizardDto wizardDto = new WizardDto(null, "Albus Dumbledore", 0);
         String json = objectMapper.writeValueAsString(wizardDto);
 
-        Wizard savedWizard = new Wizard(4, "Mr Andarabski");
+        Wizard savedWizard = new Wizard();
+        savedWizard.setId(4);
+        savedWizard.setName("Mr Andarabski");
 
         given(wizardService.save(Mockito.any(Wizard.class))).willReturn(savedWizard);
 
@@ -141,7 +149,9 @@ public class WizardControllerTest {
         WizardDto wizardDto = new WizardDto(2, "Harry Potter", 0);
         String json = objectMapper.writeValueAsString(wizardDto);
 
-        Wizard updatedWizard = new Wizard(5, "Mr Andarabski");
+        Wizard updatedWizard = new Wizard();
+        updatedWizard.setId(5);
+        updatedWizard.setName("Mr Andarabski");
 
         given(wizardService.update(eq(5), Mockito.any(Wizard.class))).willReturn(updatedWizard);
 
