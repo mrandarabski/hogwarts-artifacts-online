@@ -14,12 +14,10 @@ public class WizardService {
 
     private final WizardRepository wizardRepository;
     private final ArtifactRepository artifactRepository;
-    //private final IdWorker idWorker;
 
     public WizardService(WizardRepository wizardRepository,ArtifactRepository artifactRepository) {
         this.wizardRepository = wizardRepository;
         this.artifactRepository = artifactRepository;
-        //this.idWorker = idWorker;
     }
 
     public Wizard findById(Integer wizardId) {
@@ -32,7 +30,6 @@ public class WizardService {
     }
 
     public Wizard save(Wizard newWizard) {
-       // newWizard.setId((int) idWorker.nextId());
         return this.wizardRepository.save(newWizard);
     }
 
@@ -42,12 +39,12 @@ public class WizardService {
                     oldWizard.setName(wizard.getName());
                     return this.wizardRepository.save(oldWizard);
                 })
-                .orElseThrow(() -> new ObjectNotFoundException(null, wizardId));
+                .orElseThrow(() -> new ObjectNotFoundException("Wizard", wizardId));
     }
 
     public void delete(Integer wizardId) {
         Wizard wizardToBeDeleted =  this.wizardRepository.findById(wizardId)
-                .orElseThrow(() -> new ObjectNotFoundException(null, wizardId));
+                .orElseThrow(() -> new ObjectNotFoundException("Wizard", wizardId));
 
         // Before deletion, we will unassign this wizard's owned artifacts.
        wizardToBeDeleted.removeAllArtifacts();

@@ -4,6 +4,7 @@ import nl.andarabski.hogwartsartifactsonline.artifact.Artifact;
 import nl.andarabski.hogwartsartifactsonline.artifact.ArtifactRepository;
 import nl.andarabski.hogwartsartifactsonline.user.HogwartsUser;
 import nl.andarabski.hogwartsartifactsonline.user.UserRepository;
+import nl.andarabski.hogwartsartifactsonline.user.UserService;
 import nl.andarabski.hogwartsartifactsonline.wizard.Wizard;
 import nl.andarabski.hogwartsartifactsonline.wizard.WizardRepository;
 import org.slf4j.LoggerFactory;
@@ -20,12 +21,12 @@ public class DBDataInitializer implements CommandLineRunner {
 
     private final ArtifactRepository artifactRepository;
     private final WizardRepository wizardRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository) {
+    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserService userService) {
         this.artifactRepository = artifactRepository;
         this.wizardRepository = wizardRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
 
@@ -69,13 +70,13 @@ public class DBDataInitializer implements CommandLineRunner {
         a6.setImageUrl("imageUrl");
 
         Wizard w1 = new Wizard();
-      //  w1.setId(1);
+       // w1.setId(1);
         w1.setName("Albus Dumbledore");
         w1.addArtifact(a1);
         w1.addArtifact(a3);
 
         Wizard w2 = new Wizard();
-      //  w2.setId(2);
+       // w2.setId(2);
         w2.setName("Harry Potter");
         w2.addArtifact(a2);
         w2.addArtifact(a4);
@@ -91,30 +92,29 @@ public class DBDataInitializer implements CommandLineRunner {
 
         artifactRepository.save(a6);
 
+        // Create some users.
         HogwartsUser u1 = new HogwartsUser();
-     //   u1.setId(1);
         u1.setUsername("john");
         u1.setPassword("123456");
         u1.setEnabled(true);
         u1.setRoles("admin user");
+        // Don't manually set the id for the user, let the database generate it.
 
         HogwartsUser u2 = new HogwartsUser();
-      //  u2.setId(2);
         u2.setUsername("eric");
         u2.setPassword("654321");
         u2.setEnabled(true);
         u2.setRoles("user");
 
         HogwartsUser u3 = new HogwartsUser();
-      //  u3.setId(3);
         u3.setUsername("tom");
         u3.setPassword("qwerty");
         u3.setEnabled(false);
         u3.setRoles("user");
 
-        this.userRepository.save(u1);
-        this.userRepository.save(u2);
-        this.userRepository.save(u3);
+        this.userService.save(u1);
+        this.userService.save(u2);
+        this.userService.save(u3);
 
     }
 }

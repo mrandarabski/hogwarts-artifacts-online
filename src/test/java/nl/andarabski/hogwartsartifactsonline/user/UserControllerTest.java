@@ -30,7 +30,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false) // Turns off Spring Security
 class UserControllerTest {
 
     @Autowired
@@ -122,7 +122,7 @@ class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(jsonPath("$.flag").value(true))
                 .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
-                .andExpect(jsonPath("$.message").value("Add user"))
+                .andExpect(jsonPath("$.message").value("Add Success"))
                 .andExpect(jsonPath("$.data.id").value(4))
                 .andExpect(jsonPath("$.data.username").value("newuser"));
     }

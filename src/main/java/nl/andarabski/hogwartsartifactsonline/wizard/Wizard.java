@@ -21,10 +21,10 @@ public class Wizard implements Serializable {
 
     public Wizard(){}
 
-    public Wizard(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+//    public Wizard(Integer id, String name) {
+//        this.id = id;
+//        this.name = name;
+//    }
 
     public Integer getId() {
         return id;
@@ -59,7 +59,7 @@ public class Wizard implements Serializable {
 
     public void removeAllArtifacts() {
         this.artifacts.stream().forEach(artifact -> artifact.setOwner(null));
-        this.artifacts = null;
+        this.artifacts = new ArrayList<>();
        // this.artifacts.clear();
     }
 
