@@ -11,7 +11,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
 import org.springframework.validation.FieldError;
@@ -34,27 +33,32 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    Result handelObjectNotFoundException(ObjectNotFoundException ex){
+    Result handleObjectNotFoundException(ObjectNotFoundException ex) {
         return new Result(false, StatusCode.NOT_FOUND, ex.getMessage());
     }
 
+    /**
+     * This handles invalid inputs.
+     *
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    Result handelValidationException(MethodArgumentNotValidException ex){
+    Result handleValidationException(MethodArgumentNotValidException ex) {
         List<ObjectError> errors = ex.getBindingResult().getAllErrors();
-        Map<String, String> errorMap = new HashMap<>(errors.size());
-        errors.forEach(error -> {
+        Map<String, String> map = new HashMap<>(errors.size());
+        errors.forEach((error) -> {
             String key = ((FieldError) error).getField();
-            String value = ((FieldError) error).getDefaultMessage();
-            errorMap.put(key, value);
+            String val = error.getDefaultMessage();
+            map.put(key, val);
         });
-        return new Result(false, StatusCode.INVALID_ARGUMENT, "Provided arguments are invalid, see data for details.", errorMap );
+        return new Result(false, StatusCode.INVALID_ARGUMENT, "Provided arguments are invalid, see data for details.", map);
     }
-
 
     @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    Result handelAuthentecationException(Exception ex){
+    Result handleAuthenticationException(Exception ex) {
         return new Result(false, StatusCode.UNAUTHORIZED, "username or password is incorrect.", ex.getMessage());
     }
 
@@ -64,21 +68,21 @@ public class ExceptionHandlerAdvice {
         return new Result(false, StatusCode.UNAUTHORIZED, "Login credentials are missing.", ex.getMessage());
     }
 
-    @ExceptionHandler({AccountStatusException.class})
+    @ExceptionHandler(AccountStatusException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    Result handelAccountStatusException(AccountStatusException ex){
+    Result handleAccountStatusException(AccountStatusException ex) {
         return new Result(false, StatusCode.UNAUTHORIZED, "User account is abnormal.", ex.getMessage());
     }
 
-    @ExceptionHandler({InvalidBearerTokenException.class})
+    @ExceptionHandler(InvalidBearerTokenException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    Result handelInvalidBearerException(InvalidBearerTokenException ex){
-        return new Result(false, StatusCode.UNAUTHORIZED, "The access token is expired, revoked, malformed, or invalid for other reasons ", ex.getMessage());
+    Result handleInvalidBearerTokenException(InvalidBearerTokenException ex) {
+        return new Result(false, StatusCode.UNAUTHORIZED, "The access token provided is expired, revoked, malformed, or invalid for other reasons.", ex.getMessage());
     }
 
-    @ExceptionHandler({AccessDeniedException.class})
+    @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    Result handelAccessDeniedException(AccessDeniedException ex){
+    Result handleAccessDeniedException(AccessDeniedException ex) {
         return new Result(false, StatusCode.FORBIDDEN, "No permission.", ex.getMessage());
     }
 
@@ -115,13 +119,11 @@ public class ExceptionHandlerAdvice {
                 ex.getStatusCode());
     }
 
-
-
-//    @ExceptionHandler(CustomBlobStorageException.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    Result handleCustomBlobStorageException(CustomBlobStorageException ex) {
-//        return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, ex.getMessage(), ex.getCause().getMessage());
-//    }
+    @ExceptionHandler(CustomBlobStorageException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    Result handleCustomBlobStorageException(CustomBlobStorageException ex) {
+        return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, ex.getMessage(), ex.getCause().getMessage());
+    }
 
     @ExceptionHandler(PasswordChangeIllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -131,12 +133,13 @@ public class ExceptionHandlerAdvice {
 
     /**
      * Fallback handles any unhandled exceptions.
+     *
      * @param ex
      * @return
      */
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    Result handelOtherExceptions(Exception ex){
-        return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, "A server internal error occurs", ex.getMessage());
+    Result handleOtherException(Exception ex) {
+        return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, "A server internal error occurs.", ex.getMessage());
     }
 }
