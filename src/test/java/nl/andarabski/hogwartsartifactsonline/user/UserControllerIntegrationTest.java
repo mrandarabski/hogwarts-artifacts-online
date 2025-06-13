@@ -263,7 +263,7 @@ public class UserControllerIntegrationTest {
 
     @Disabled
     //@Test
-   // @DisplayName("Check updateUser with valid input (PUT): User with ROLE_user Updating Own Info")
+    //@DisplayName("Check updateUser with valid input (PUT): User with ROLE_user Updating Own Info")
     void testUpdateUserWithUserUpdatingOwnInfo() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(post(this.baseUrl + "/users/login").with(httpBasic("eric", "654321"))); // httpBasic() is from spring-security-test.
         MvcResult mvcResult = resultActions.andDo(print()).andReturn();
@@ -343,8 +343,8 @@ public class UserControllerIntegrationTest {
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 
-    @Disabled
-   // @Test
+   @Disabled
+    //@Test
     //@DisplayName("Check deleteUser with insufficient permission (DELETE)")
     void testDeleteUserNoAccessAsRoleUser() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(post(this.baseUrl + "/users/login").with(httpBasic("eric", "654321"))); // httpBasic() is from spring-security-test.
@@ -369,7 +369,8 @@ public class UserControllerIntegrationTest {
                 .andExpect(jsonPath("$.data[0].id").value(1))
                 .andExpect(jsonPath("$.data[0].username").value("john"));
     }
-
+// This test is made by Mr Andarabski
+//Deploy Spring Boot Applicatin On Cloud Foundry Using GitHub Action
     @Test
     @DisplayName("Check changeUserPassword with valid input (PATCH)")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
