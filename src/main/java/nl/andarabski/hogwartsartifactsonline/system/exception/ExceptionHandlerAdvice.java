@@ -65,7 +65,7 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(InsufficientAuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     Result handleInsufficientAuthenticationException(InsufficientAuthenticationException ex) {
-        return new Result(false, StatusCode.UNAUTHORIZED, "Login credentials are missing.", ex.getMessage());
+        return new Result(false, StatusCode.UNAUTHORIZED, "Login credentials are missing please try with correct credentials again.", ex.getMessage());
     }
 
     @ExceptionHandler(AccountStatusException.class)
