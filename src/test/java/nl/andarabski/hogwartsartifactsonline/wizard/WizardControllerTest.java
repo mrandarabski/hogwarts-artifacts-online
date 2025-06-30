@@ -32,6 +32,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false) // Turns off Spring Security
+@ActiveProfiles(value = "dev")
 public class WizardControllerTest {
 
     @Autowired

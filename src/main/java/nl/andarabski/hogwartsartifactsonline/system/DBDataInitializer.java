@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Profile("!test")
+
 @Component
+@Profile("dev")
 public class DBDataInitializer implements CommandLineRunner {
 
     private final ArtifactRepository artifactRepository;

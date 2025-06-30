@@ -1,14 +1,9 @@
 spring:
-  application:
-    name: hogarts-artifacts-online
-  datasource:
-    url: jdbc:h2:mem:hogwarts
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  jpa:
-   # database-platform: org.hibernate.dialect.H2Dialect
-    show-sql: true
+  profiles:
+    active: dev // By default is "dev". During production , it will be replaced to "prod" due to Azure's enviroment variables
+  web:
+    resources:
+      add-mappings: false
 api:
   endpoint:
     base-url: /api/v1
