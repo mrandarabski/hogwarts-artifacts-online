@@ -18,9 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -48,6 +45,7 @@ public class UserControllerIntegrationTest {
     @BeforeEach
     void setUp() throws Exception {
         // User john has all permissions.
+        System.out.println("Test");
         ResultActions resultActions = this.mockMvc.perform(post(this.baseUrl + "/users/login").with(httpBasic("john", "123456"))); // httpBasic() is from spring-security-test.
         MvcResult mvcResult = resultActions.andDo(print()).andReturn();
         String contentAsString = mvcResult.getResponse().getContentAsString();
@@ -55,7 +53,7 @@ public class UserControllerIntegrationTest {
         if(json instanceof JSONObject) {
             this.token = "Bearer " + json.getJSONObject("data").getString("token");
         } else {
-            System.out.println("Dat is not a JSONObject: " + json);
+            System.out.println("Dat is not a JSONObject : " + json);
         }
     }
 
