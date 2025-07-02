@@ -39,7 +39,7 @@ public class WizardControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Value("/api/v1")
+    @Value("${api.endpoint.base-url}")
     String baseUrl;
 
     private String wizardObject = "Wizard";

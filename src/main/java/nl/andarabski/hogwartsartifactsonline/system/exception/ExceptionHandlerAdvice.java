@@ -119,17 +119,17 @@ public class ExceptionHandlerAdvice {
                 ex.getStatusCode());
     }
 
-    @ExceptionHandler(CustomBlobStorageException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    Result handleCustomBlobStorageException(CustomBlobStorageException ex) {
-        return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, ex.getMessage(), ex.getCause().getMessage());
-    }
-
-    @ExceptionHandler(PasswordChangeIllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    Result handlePasswordChangeIllegalArgumentException(PasswordChangeIllegalArgumentException ex) {
-        return new Result(false, StatusCode.INVALID_ARGUMENT, ex.getMessage());
-    }
+//    @ExceptionHandler(CustomBlobStorageException.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    Result handleCustomBlobStorageException(CustomBlobStorageException ex) {
+//        return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, ex.getMessage(), ex.getCause().getMessage());
+//    }
+//
+//    @ExceptionHandler(PasswordChangeIllegalArgumentException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    Result handlePasswordChangeIllegalArgumentException(PasswordChangeIllegalArgumentException ex) {
+//        return new Result(false, StatusCode.INVALID_ARGUMENT, ex.getMessage());
+//    }
 
     /**
      * Fallback handles any unhandled exceptions.
