@@ -45,7 +45,7 @@ public class UserControllerIntegrationTest {
     @BeforeEach
     void setUp() throws Exception {
         // User john has all permissions.
-        System.out.println("Test");
+        System.out.println("Test user: john, password: <PASSWORD> 123456. Token: <PASSWORD> 123456.");
         ResultActions resultActions = this.mockMvc.perform(post(this.baseUrl + "/users/login").with(httpBasic("john", "123456"))); // httpBasic() is from spring-security-test.
         MvcResult mvcResult = resultActions.andDo(print()).andReturn();
         String contentAsString = mvcResult.getResponse().getContentAsString();
