@@ -45,7 +45,7 @@ public class UserControllerIntegrationTest {
     @BeforeEach
     void setUp() throws Exception {
         // User john has all permissions.
-        System.out.println("This test is only for dev profile. Running it with dev profile. If you are running it with other profile, it will skip this test .");
+        System.out.println("This test is only for dev profile. Running it with dev profile.");
         ResultActions resultActions = this.mockMvc.perform(post(this.baseUrl + "/users/login").with(httpBasic("john", "123456"))); // httpBasic() is from spring-security-test.
         MvcResult mvcResult = resultActions.andDo(print()).andReturn();
         String contentAsString = mvcResult.getResponse().getContentAsString();
