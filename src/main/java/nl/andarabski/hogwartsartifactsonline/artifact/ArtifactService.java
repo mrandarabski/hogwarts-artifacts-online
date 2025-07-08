@@ -1,5 +1,6 @@
 package nl.andarabski.hogwartsartifactsonline.artifact;
 
+import io.micrometer.core.annotation.Timed;
 import jakarta.transaction.Transactional;
 import nl.andarabski.hogwartsartifactsonline.artifact.utils.IdWorker;
 import nl.andarabski.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
@@ -19,12 +20,12 @@ public class ArtifactService {
         this.idWorker = idWorker;
     }
 
-
     public Artifact findById(String artifactId) {
         return this.artifactRepository.findById(artifactId)
                 .orElseThrow(() -> new ObjectNotFoundException("Artifact", artifactId));
     }
 
+    @Timed("findAllArtifactsService.time")
     public List<Artifact> findAll() {
 
         return this.artifactRepository.findAll();
