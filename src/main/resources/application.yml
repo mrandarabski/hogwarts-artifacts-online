@@ -37,7 +37,7 @@ management:
       enabled: true
 info:
   app:
-    name: hogwarts-artifacts-online
+    name: hogwarts-artifacts-online1
     description: A web application that manages artifacts and wizards for Hogwarts School of Witchcraft and Wizardry.
     version: @project.version@
     author: Mr Andarabski
